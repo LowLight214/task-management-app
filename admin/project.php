@@ -256,91 +256,33 @@ if(isset($_SESSION["username"])){
 
                         <!-- Area Chart -->
                         <div class="card shadow mb-4">
-                            <div
-                            class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                            <h6 class="m-0 font-weight-bold text-primary">TaskMAV Project</h6>
-                            <div class="dropdown no-arrow">
-                                <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                </a>
-                                <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                    aria-labelledby="dropdownMenuLink">
-                                    <div class="dropdown-header">Actions:</div>
-                                    <a class="dropdown-item" data-toggle="modal" data-target="#addProjectModal">Add Project</a>
-                                    <a class="dropdown-item" data-toggle="modal" data-target="#addTaskModal">Add Task</a>
-                                    
-                                    
-                                </div>
+                            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                <div class="pull-right">
+                                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#addProjectModal">
+                                        <i class="fas fa-plus"></i>
+                                    </a>
+                                </div>    
                             </div>
-                        </div>
                             
-                        <section id="tabs" class="project-tab">
-                            <div class="container">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <nav>
-                                            <div class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
-                                                <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab" aria-controls="nav-home" aria-selected="true">Project List</a>
-                                                <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab" aria-controls="nav-profile" aria-selected="true">Task List</a>
-                                            </div>
-                                        </nav>
-                                        <div class="tab-content" id="nav-tabContent">
-                                            <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                                <?php
-                                                    include("retriever-project.php");
-                                                ?>     
+                            <section id="tabs" class="project-tab">
+                                <div class="container">
+                                    <div class="row">
+                                        <div class="col-md-12">
                                             
-                                            </div>
-                                            <!--Tab 2-->
-                                            <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                                <div class="card-body">
-                                                    <div class="table-responsive">
-                                                        <table id="projTableId1" class="table table-striped table-hover dataTable" aria-describedby="projTableId_info">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th class="sorting sorting_asc" tabindex="0" aria-controls="projTableId" rowspan="1" colspan="1" aria-sort="ascending" aria-label="Project ID: activate to sort column descending" style="width: 84.2188px;">Task ID</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="projTableId" rowspan="1" colspan="1" aria-label="Project Name: activate to sort column ascending" style="width: 117.75px;">Task Name</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="projTableId" rowspan="1" colspan="1" aria-label="Project Description: activate to sort column ascending" style="width: 159.141px;">Task Description</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="projTableId" rowspan="1" colspan="1" aria-label="Project Status: activate to sort column ascending" style="width: 118.641px;">Task Status</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="projTableId" rowspan="1" colspan="1" aria-label="Start Date: activate to sort column ascending" style="width: 89.2188px;">Start Date</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="projTableId" rowspan="1" colspan="1" aria-label="End Date: activate to sort column ascending" style="width: 79.0781px;">End Date</th>
-                                                                    <th class="sorting" tabindex="0" aria-controls="projTableId" rowspan="1" colspan="1" aria-label="Action: activate to sort column ascending" style="width: 61.9531px;">Action</th></tr>
-                                                            </thead>
-                                                            <tfoot>
-                                                                <tr><th rowspan="1" colspan="1">Task ID</th>
-                                                                    <th rowspan="1" colspan="1">Task Name</th>
-                                                                    <th rowspan="1" colspan="1">Task Description</th>
-                                                                    <th rowspan="1" colspan="1">Task Status</th>
-                                                                    <th rowspan="1" colspan="1">Start Date</th>
-                                                                    <th rowspan="1" colspan="1">End Date</th>
-                                                                    <th rowspan="1" colspan="1">Action</th>
-                                                                </tr>
-                                                            </tfoot>
-                                                            <tbody>
-                                                                
-                                                                
-                                                            <tr class="odd">
-                                                                    <td class="sorting_1">001</td>
-                                                                    <td>Sample Task Name</td>
-                                                                    <td>Sample Task Description</td>
-                                                                    <td>Ongoing</td>
-                                                                    <td>31/03/22</td>
-                                                                    <td>31/03/22</td>
-                                                                    <td></td>
-                                                                </tr>
-                                                                
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
+                                            <div class="tab-content" id="nav-tabContent">
+                                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+                                                    <?php
+                                                        include("retriever-project.php");
+                                                    ?>     
+                                                
                                                 </div>
+                                                
                                             </div>
-                                            
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                            </section>
                         
                         </div>
         
@@ -359,16 +301,6 @@ if(isset($_SESSION["username"])){
                 </div>
             </div>
             <!-- End of Add Project Modal -->
-
-            <div id="addTaskModal" class="modal fade">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <?php
-                            include("addTask.php");
-                        ?>
-                    </div>
-                </div>
-            </div>
 
 
 

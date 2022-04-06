@@ -20,13 +20,12 @@ if(isset($_POST["btnAddTask"])){
         $description = $_POST["description"];
     }
     
-    echo "<script>alert('$projectID.$status.$taskName.$department.$description')</script>";
     if($projectID && $taskName && $status && $department && $description){
         
         mysqli_query($conn, "INSERT INTO `tbl_task` (`taskID`, `taskName`, `taskDescription`, `taskStatus`, `projectID`, `departmentID`, `filePath`) 
         VALUES (NULL, '$taskName', '$description', '$status', '$projectID', '$department', '') ");
 
-        echo "<script> window.location.href='project.php'; </script>";
+        echo "<script> window.location.href='task.php'; </script>";
 
     }
 
