@@ -32,11 +32,16 @@ if(isset($_POST["btnAddProject"])){
         $description = $_POST["description"];
     }
     
-    
+    $dateToday = date("Y-m-d");
     if($projectName && $status && $startDate && $endDate && $teamLeader && $department && $description){
         
-        mysqli_query($conn, "INSERT INTO `tbl_project` (`projectID`, `projectTitle`, `projectDescription`, `projectStatus`, `startDate`, `endDate`, `departmentID`, `leaderUserID`, `projectProgress`, `filePath`)
+        $insertProject = mysqli_query($conn, "INSERT INTO `tbl_project` (`projectID`, `projectTitle`, `projectDescription`, `projectStatus`, `startDate`, `endDate`, `departmentID`, `leaderUserID`, `projectProgress`, `filePath`)
                 VALUES (NULL, '$projectName', '$description', '$status', '$startDate', '$endDate', '$department', '$teamLeader', '0', NULL) ");
+
+        if($insertProject){
+            $newNotification = mysqli_query($conn, "INSERT INTO `tbl_notifications` (`notifID`, `notifTitle`, `notifDescription`, `receiverID`, `receiverDepartment`, `dateSent`, `isRead`) 
+            VALUES (NULL, 'New Project', 'A new project has been assigned to your team named $projectName', '', '$department', '$dateToday', '0') ");
+        }
 
         echo "<script> window.location.href='project.php'; </script>";
             
@@ -89,14 +94,31 @@ if(isset($_POST["btnAddProject"])){
                 </div>
                 <div class="input-box">
                     <span class="details">Team Leader</span>
-                    <input type="text" class="form-control" name="tLeader" required>
+                    <input type="text" class="form-control" id="tLeader" name="tLeader" required>
+
+                    <?php
+                        $getLeader = mysqli_query($conn,"SELECT * FROM tbl_users WHERE role=2");
+                        while($rowLead = mysqli_fetch_assoc($getLeader)){
+                            $db_leaderName = $rowLead["firstName"]. " " . $rowLead["lastName"];
+                            $db_departmentID = $rowLead["departmentID"];
+                            if($db_leaderName==="")
+                            {
+                                continue;
+                            }
+                            echo"
+                                <input type='hidden' name='leaderName' id ='$db_departmentID' value='$db_leaderName'>
+                            ";
+                        }
+                    ?>
+                    
+
                     <div class="invalid-feedback">
                         This field cannot be empty!
                     </div>
                 </div>
                 <div class="input-box">
                     <span class="details">Department</span>
-                    <select type="text" name="department" class="form-control" required>
+                    <select type="text" name="department" id="department" class="form-control" onchange="getLeader()" required>
                         <option value="" selected disabled>Select Department</option>
                         <?php
 
@@ -123,6 +145,20 @@ if(isset($_POST["btnAddProject"])){
                         This field cannot be empty!
                     </div>
                 </div>
+
+                <script>
+                    function getLeader(){
+                        deptPicked = $('#department').val();
+                        leader = $('#'+deptPicked).val();
+
+                        if($.isNumeric(leader)){
+                            leader= "No Leader yet";
+                        }
+
+                        $('#tLeader').val(leader)
+                    }
+                </script>
+
             </div>
             <hr class="solid">
             <div class="proj-details">

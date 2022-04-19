@@ -25,6 +25,11 @@
                     $db_status = $rowTask["taskStatus"];;
                     $count++;
 
+                    $jScript = md5(rand(1,9));
+                    $newScript = md5(rand(1,9));
+                    $getUpdate = md5(rand(1,9));
+                    $getDelete = md5(rand(1,9));
+
                     echo "
                         <tr>
                             <th scope='row'>$count</th>
@@ -38,7 +43,7 @@
                                 <button type='button' class='btn btn-outline-primary updateBtn' onclick='modalOpen($count)'>
                                     <i class='fas fa-edit'></i>
                                 </button>
-                                <a href='#' class='btn btn-outline-danger'><i class='fas fa-trash'></i></a>
+                                <a href='?jScript=$jScript && newScript=$newScript && getDelete=$getDelete && taskID=$db_taskID && projectID=$projectID' class='btn btn-outline-danger'><i class='fas fa-trash'></i></a>
                             </td>
                                 
                         </tr>

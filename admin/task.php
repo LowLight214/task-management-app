@@ -258,56 +258,64 @@ $row = mysqli_fetch_assoc($getProjectInfo);
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                <div class="container-fluid">
-          <h4 class="m-0 font-weight-bold text-primary">View Project</h4>
-          <hr>
+        <div class="container-fluid">
 
-  <div class="card shadow mb-4">
-  <div class="col-lg-12">
-      <div class="row">
-        <div class="col-md-12">
-          <div class="callout callout-info">
-            <div class="col-md-12">
-              <div class="row">
-                <div class="col-sm-6">
-                  <dl>
-                    <br>
-                    <dt><b class="border-bottom border-primary" id="projectName"><?php echo $projectName; ?></b></dt>
-                    <dd id="department"><?php echo $department; ?></dd>
-                    <dt><b class="border-bottom border-primary">Description</b></dt>
-                    <dd style="text-align: justify;">
-                        <?php echo $description; ?>
-                    </dd>
-                  </dl>
+            <?php
+                if(empty($_GET["getDelete"])){
+
+                }
+                else{
+                    include("deleteTask.php");
+                }
+            ?>
+
+            <h4 class="m-0 font-weight-bold text-primary">View Project</h4>
+            <hr>
+
+            <div class="card shadow mb-4">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-md-12">
+                        <div class="callout callout-info">
+                            <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                <dl>
+                                    <br>
+                                    <dt><b class="border-bottom border-primary" id="projectName"><?php echo $projectName; ?></b></dt>
+                                    <dd id="department"><?php echo $department; ?></dd>
+                                    <dt><b class="border-bottom border-primary">Description</b></dt>
+                                    <dd style="text-align: justify;">
+                                        <?php echo $description; ?>
+                                    </dd>
+                                </dl>
+                                </div>
+
+                                <div class="col-md-6">
+                                <dl>
+                                    <br>
+                                    <dt><b class="border-bottom border-primary">Start Date</b></dt>
+                                    <dd>
+                                        <?php echo $sDate; ?>
+                                    </dd>
+                                </dl>
+                                <dl>
+                                    <dt><b class="border-bottom border-primary">End Date</b></dt>
+                                        <dd><?php echo $eDate; ?></dd>
+                                </dl>
+                                <dl>
+                                    <dt><b class="border-bottom border-primary">Status</b></dt>
+                                    <dd>
+                                        <?php echo $status; ?>
+                                    </dd>
+                                </dl>
+                            </div>
+                            </div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-md-6">
-                  <dl>
-                    <br>
-                    <dt><b class="border-bottom border-primary">Start Date</b></dt>
-                    <dd>
-                        <?php echo $sDate; ?>
-                    </dd>
-                  </dl>
-                  <dl>
-                    <dt><b class="border-bottom border-primary">End Date</b></dt>
-                        <dd><?php echo $eDate; ?></dd>
-                  </dl>
-                  <dl>
-                    <dt><b class="border-bottom border-primary">Status</b></dt>
-                    <dd>
-                        <?php echo $status; ?>
-                    </dd>
-                </dl>
-              </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-
-                  </div>
 
                   <!-- /.container-fluid -->
                   </div>
@@ -329,7 +337,7 @@ $row = mysqli_fetch_assoc($getProjectInfo);
                         ?>
 
                 <!-- /.container-fluid -->
-            </div>
+        </div>
             <!-- End of Main Content -->
 
             <!-- Start of Add Task Modal -->

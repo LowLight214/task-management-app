@@ -53,7 +53,7 @@ if(isset($_POST["btnAddUser"])){
         }
         
 
-        echo "<script> window.location.href='project.php'; </script>";
+        echo "<script> window.location.href='user.php'; </script>";
 
     }
 
@@ -111,8 +111,9 @@ if(isset($_POST["btnAddUser"])){
                             $getRole = mysqli_query($conn,"SELECT * FROM tbl_account_type");
                             while($rowRole = mysqli_fetch_assoc($getRole)){
                                 $db_role = $rowRole["accountType"];
+                                $db_type = $rowRole["accountTypeID"];
                             ?>
-                            <option value="<?php echo $db_role ?>"><?php echo $db_role ?></option>
+                            <option value="<?php echo $db_type ?>"><?php echo $db_role ?></option>
                                 <?php
                             }
                                 ?>

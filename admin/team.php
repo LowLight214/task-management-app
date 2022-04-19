@@ -1,3 +1,17 @@
+<?php
+
+session_start();
+
+include ("../connections.php");
+
+if(isset($_SESSION["username"])){
+	
+	$username = $_SESSION["username"];
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -47,7 +61,7 @@
 
             <!-- Nav Item - Dashboard -->
             <li class="nav-item">
-                <a class="nav-link" href="admin.html">
+                <a class="nav-link" href="dashboard.php">
                     <i class="fas fa-fw fa-tachometer-alt"></i>
                     <span>Dashboard</span></a>
             </li>
@@ -62,7 +76,7 @@
 
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="projList.html">
+                <a class="nav-link collapsed" href="project.php">
                     <i class="fas fa-fw fa-folder"></i>
                     <span>Projects</span>
                 </a>
@@ -70,7 +84,7 @@
 
             <!-- Nav Item - Utilities Collapse Menu -->
             <li class="nav-item">
-                <a class="nav-link collapsed" href="report.html">
+                <a class="nav-link collapsed" href="report.php">
                     <i class="fas fa-list"></i>
                     <span>Reports</span>
                 </a>
@@ -264,49 +278,19 @@
                     <div
                     class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Team List</h6>
-                    <div class="dropdown no-arrow">
-                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                            aria-labelledby="dropdownMenuLink">
-                            <div class="dropdown-header">Actions:</div>
-                            <a class="dropdown-item" data-toggle="modal" data-target="#addProjectModal">Add Team</a>
-                            
-                            
-                        </div>
+                    <div class="pull-right">
+                        
+                            <a class="btn btn-outline-primary" data-toggle="modal" data-target="#addDepartmentModal">
+                                <i class="fas fa-plus"></i>
+                            </a>
+
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="table-responsive">
-                        <table id="projTableId" class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Team ID</th>
-                                    <th>Team Name</th>
-                                    <th>Department</th>
-                                    <th>Team Leader</th>						
-                                    <th>No. of Members</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tfoot>
-                                <tr>
-                                    <th>Team ID</th>
-                                    <th>Team Name</th>
-                                    <th>Department</th>
-                                    <th>Team Leader</th>						
-                                    <th>No. of Members</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
-                            <tbody>
-                               
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
+
+                <?php
+                    include("retriever-department.php");
+                ?>
+
                 </div>
 
             </div>
@@ -315,33 +299,22 @@
         </div>
         <!-- End of Main Content -->
 
-        <div id="addProjectModal" class="modal fade">
+        <div id="addDepartmentModal" class="modal fade">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add Team</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Team Name</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Team Leader</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Department</label>
-                                <input type="text" class="form-control" required>
-                            </div>			
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
+                    <?php
+                        include("addDepartment.php");
+                    ?>
+                </div>
+            </div>
+        </div>
+
+        <div id="updateProjectModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <?php
+                        include("updateDepartment.php");
+                    ?>
                 </div>
             </div>
         </div>

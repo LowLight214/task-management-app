@@ -10,6 +10,12 @@ if(isset($_SESSION["username"])){
 
 }
 
+$getUser = mysqli_query($conn,"SELECT a.userID,a.departmentID FROM tbl_users AS a INNER JOIN tbl_user_creds AS b ON a.userID=b.userID WHERE b.username='$username'");
+$rowUserID = mysqli_fetch_assoc($getUser);
+
+$userID = $rowUserID["userID"];
+$departmentID =$rowUserID["departmentID"];
+
 ?>
 
 <!DOCTYPE html>
@@ -170,45 +176,9 @@ if(isset($_SESSION["username"])){
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
-                                <h6 class="dropdown-header">
-                                    Notifications
-                                </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">January 16, 2022</div>
-                                        <span class="font-weight-bold">Project-IT-26</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">January 16, 2022</div>
-                                        <span class="font-weight-bold">Project-IT-26</span>
-                                    </div>
-                                </a>
-                               
-                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
-                            </div>
-                        </li>
+                        <?php
+                            include("../notifications.php");
+                        ?>
 
                         <!-- Nav Item - Messages -->
                         
@@ -257,32 +227,21 @@ if(isset($_SESSION["username"])){
                         <!-- Area Chart -->
                         <div class="card shadow mb-4">
                             <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                <h6 class="m-0 font-weight-bold text-primary">Project List</h6>
                                 <div class="pull-right">
-                                    <a class="btn btn-outline-primary" data-toggle="modal" data-target="#addProjectModal">
-                                        <i class="fas fa-plus"></i>
-                                    </a>
-                                </div>    
+                                    
+                                        <a class="btn btn-outline-primary" data-toggle="modal" data-target="#addProjectModal">
+                                            <i class="fas fa-plus"></i>
+                                        </a>
+
+                                </div>
                             </div>
                             
-                            <section id="tabs" class="project-tab">
-                                <div class="container">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            
-                                            <div class="tab-content" id="nav-tabContent">
-                                                <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                                    <?php
-                                                        include("retriever-project.php");
-                                                    ?>     
+                            <?php
+                                include("retriever-project.php");
+                            ?>     
                                                 
-                                                </div>
                                                 
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </section>
                         
                         </div>
         
@@ -302,6 +261,15 @@ if(isset($_SESSION["username"])){
             </div>
             <!-- End of Add Project Modal -->
 
+            <div id="editProjectModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <?php
+                            include("updateProject.php");
+                        ?>
+                    </div>
+                </div>
+            </div>
 
 
             <!-- Footer -->
