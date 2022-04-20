@@ -38,7 +38,6 @@
                     <th>Tasks Completed</th> 
                     <th>Due Date</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tfoot>
@@ -49,7 +48,6 @@
                     <th>Tasks Completed</th> 
                     <th>Due Date</th>
                     <th>Status</th>
-                    <th>Action</th>
                 </tr>
             </tfoot>                
             <tbody>
@@ -78,11 +76,6 @@
                                 <td>2</td>
                                 <td>$db_endDate</td>
                                 <td>$db_status</td>
-
-                                <td>
-                                    <a href='#' class='btn btn-outline-primary'><i class='fas fa-edit'></i></a>
-                                    <a href='#' class='btn btn-outline-danger'><i class='fas fa-trash'></i></a>
-                                </td>
                                 
                             </tr>
                                     

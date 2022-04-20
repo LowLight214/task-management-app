@@ -217,7 +217,14 @@ $departmentID =$rowUserID["departmentID"];
                 <div class="container-fluid">
 
                    
+                <?php
+                    if(empty($_GET["getDelete"])){
 
+                    }
+                    else{
+                        include("deleteProject.php");
+                    }
+                ?>
                    
 
                     <!-- Content Row -->

@@ -40,6 +40,11 @@
 
                     $db_leaderName = $rowProject["firstName"]." ".$rowProject["lastName"];
 
+                    $jScript = md5(rand(1,9));
+                    $newScript = md5(rand(1,9));
+                    $getUpdate = md5(rand(1,9));
+                    $getDelete = md5(rand(1,9));
+
                     $count++;
 
                     echo "
@@ -61,7 +66,7 @@
                                 <button type='button' class='btn btn-outline-primary updateBtn' onclick='modalOpen($count)'>
                                     <i class='fas fa-edit'></i>
                                 </button>
-                                <a href='#' class='btn btn-outline-danger'><i class='fas fa-trash'></i></a>
+                                <a href='?jScript=$jScript && newScript=$newScript && getDelete=$getDelete && projectID=$db_projectID' class='btn btn-outline-danger'><i class='fas fa-trash'></i></a>
                                 <a href='#' class='btn btn-outline-dark'  onclick='goToProject($db_projectID)'><i class='fas fa-eye'></i></a>
                             </td>
                                 

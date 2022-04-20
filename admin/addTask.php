@@ -25,7 +25,7 @@ if(isset($_POST["btnAddTask"])){
         mysqli_query($conn, "INSERT INTO `tbl_task` (`taskID`, `taskName`, `taskDescription`, `taskStatus`, `projectID`, `departmentID`, `filePath`) 
         VALUES (NULL, '$taskName', '$description', '$status', '$projectID', '$department', '') ");
 
-        echo "<script> window.location.href='task.php'; </script>";
+        echo "<script> window.location.href='task.php?projectID=$projectID'; </script>";
 
     }
 

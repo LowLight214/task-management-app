@@ -1,24 +1,27 @@
-<?php
 
-?>
 
 <li class="nav-item dropdown no-arrow mx-1">
     <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
     data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-bell fa-fw"></i>
         <!-- Counter - Alerts -->
-        <span class="badge badge-danger badge-counter">
-            <?php
-                $count = 0;
-                $countNotif = mysqli_query($conn,"SELECT * FROM tbl_notifications WHERE receiverDepartment = $departmentID");
+        <?php
+            $count = 0;
+            $countNotif = mysqli_query($conn,"SELECT * FROM tbl_notifications WHERE receiverDepartment = $departmentID");
                 
-                while(mysqli_fetch_assoc($countNotif)){
-                    $count++;
-                }
+            while(mysqli_fetch_assoc($countNotif)){
+                $count++;
+            }
 
-                echo $count;
-            ?>
-        </span>
+            if ($count>0){
+                echo "
+                <span class='badge badge-danger badge-counter'>
+                     $count
+                </span>  
+                ";   
+            }
+        ?>
+        
     </a>
         <!-- Dropdown - Alerts -->
     <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
