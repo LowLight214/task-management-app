@@ -23,6 +23,8 @@
                             
 
                 <?php
+
+                include("../connections.php");
                                 
                 $count = $memberCount = 0;
 

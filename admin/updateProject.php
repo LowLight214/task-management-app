@@ -92,7 +92,7 @@ if(isset($_POST["btnUpdateProject"])){
                 </div>
                 <div class="input-box">
                     <span class="details">Team Leader</span>
-                    <input type="text" class="form-control" name="new_tLeader" id="tLeader" required >
+                    <input type="text" class="form-control" name="new_tLeader" id="new_tLeader" required >
                     <div class="invalid-feedback">
                         This field cannot be empty!
                     </div>

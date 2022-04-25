@@ -10,6 +10,22 @@ if(isset($_SESSION["username"])){
 
 }
 
+$getUser = mysqli_query($conn,"SELECT a.userID,a.departmentID,a.profilePic FROM tbl_users AS a INNER JOIN tbl_user_creds AS b ON a.userID=b.userID WHERE b.username='$username'");
+$rowUserID = mysqli_fetch_assoc($getUser);
+
+$userID = $rowUserID["userID"];
+$departmentID =$rowUserID["departmentID"];
+
+$img = $rowUserID["profilePic"];
+
+$image = "";
+if($img == ""){
+    $image = "https://bootdey.com/img/Content/avatar/avatar7.png";
+}
+else{
+    $image = $img;
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -22,6 +38,20 @@ if(isset($_SESSION["username"])){
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <script type="text/javascript" src="../js/jQuery.js"></script>
+    <script type="application/javascript">
+
+        setInterval(function(){
+            
+            $('#retrieverGroup').load('retriever-reportTeam.php');
+            $('#retrieverIndividual').load('retriever-reportIndividual.php');
+            $('#badgeNotif').load('../notification-badge.php');
+            $('#contentNotif').load('../notification-content.php');
+            
+        }, 1000);
+
+    </script>
 
     <title>TaskMAV Project List</title>
 
@@ -180,50 +210,28 @@ if(isset($_SESSION["username"])){
                         <!-- Nav Item - Alerts -->
                         <li class="nav-item dropdown no-arrow mx-1">
                             <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="fas fa-bell fa-fw"></i>
                                 <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter">3+</span>
+                                <div id="badgeNotif">
+                                    <?php
+                                        include("../notification-badge.php")
+                                    ?>
+                                </div> 
                             </a>
-                            <!-- Dropdown - Alerts -->
+                                <!-- Dropdown - Alerts -->
                             <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
-                                aria-labelledby="alertsDropdown">
+                            aria-labelledby="alertsDropdown">
                                 <h6 class="dropdown-header">
-                                    Alerts Center
+                                    Notifications
                                 </h6>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-primary">
-                                            <i class="fas fa-file-alt text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 12, 2019</div>
-                                        <span class="font-weight-bold">A new monthly report is ready to download!</span>
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-success">
-                                            <i class="fas fa-donate text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 7, 2019</div>
-                                        $290.29 has been deposited into your account!
-                                    </div>
-                                </a>
-                                <a class="dropdown-item d-flex align-items-center" href="#">
-                                    <div class="mr-3">
-                                        <div class="icon-circle bg-warning">
-                                            <i class="fas fa-exclamation-triangle text-white"></i>
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <div class="small text-gray-500">December 2, 2019</div>
-                                        Spending Alert: We've noticed unusually high spending for your account.
-                                    </div>
-                                </a>
+
+                                <div id="contentNotif">
+                                    <?php
+                                        include("../notification-content.php")
+                                    ?>
+                                </div>
+                                            
                                 <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
                             </div>
                         </li>
@@ -235,8 +243,8 @@ if(isset($_SESSION["username"])){
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" style="border:1px solid black;object-fit:cover;width:50px;height:50px;"
+                                    src="<?php echo $image; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -293,15 +301,19 @@ if(isset($_SESSION["username"])){
                                 </nav>
                                 <div class="tab-content" id="nav-tabContent">
                                     <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
-                                            <?php
-                                                include("reportTeam.php");
-                                            ?>
+                                            <div id="retrieverGroup">
+                                                <?php
+                                                    include("reportTeam.php");
+                                                ?>
+                                            </div>
                                     </div>
                                     <!--Tab 2-->
                                     <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
-                                        <?php
-                                            include("reportIndividual.php");
-                                        ?>
+                                        <div id="retrieverIndividual">
+                                            <?php
+                                                include("reportIndividual.php");
+                                            ?>
+                                        </div>
                                     </div>
                                     
                                 </div>
@@ -318,55 +330,6 @@ if(isset($_SESSION["username"])){
 
         </div>
         <!-- End of Main Content -->
-
-        <div id="addProjectModal" class="modal fade">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <form>
-                        <div class="modal-header">						
-                            <h4 class="modal-title">Add Project</h4>
-                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        </div>
-                        <div class="modal-body">					
-                            <div class="form-group">
-                                <label>Project Title</label>
-                                <input type="text" class="form-control" required>
-                            </div>
-                            <div class="form-group">
-                                <label>Project description</label>
-                                <textarea class="form-control" required></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label>Project Status</label>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                      Select Status
-                                    </button>
-                                    <div class="dropdown-menu">
-                                      <a class="dropdown-item" href="#">Pending</a>
-                                      <a class="dropdown-item" href="#">Ongoing</a>
-                                      <a class="dropdown-item" href="#">Completed</a>
-                                      <a class="dropdown-item" href="#">Closed</a>
-                                    </div>
-                                  </div>
-                            </div>
-                            <div class="form-group">
-                                <label>Start Date</label>
-                                <input type="text" class="form-control" required>
-                            </div>		
-                            <div class="form-group">
-                                <label>End Date</label> Date</label>
-                                <input type="text" class="form-control" required>
-                            </div>			
-                        </div>
-                        <div class="modal-footer">
-                            <input type="button" class="btn btn-default" data-dismiss="modal" value="Cancel">
-                            <input type="submit" class="btn btn-success" value="Add">
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
 
             
 

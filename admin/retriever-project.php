@@ -15,6 +15,8 @@
             <tbody>
                         
                 <?php
+                
+                include("../connections.php");
                                 
                 $count = 0;
 
@@ -57,11 +59,9 @@
                             <td>$db_department</td>
                             <td hidden>$db_departmentID</td>
                             <td>$db_leaderName</td>
-
                             <td hidden>$db_projectDesc</td>
                             <td hidden>$db_startDate</td>
                             <td hidden>$db_projectID</td>
-
                             <td>
                                 <button type='button' class='btn btn-outline-primary updateBtn' onclick='modalOpen($count)'>
                                     <i class='fas fa-edit'></i>
@@ -101,7 +101,7 @@
             dept = $('#projTableId tr:eq('+id+') td:eq(4)').text();;
             $("#dept"+dept).attr('selected', 'selected');
 
-            $('#tLeader').val($('#projTableId tr:eq('+id+') td:eq(5)').text());
+            $('#new_tLeader').val($('#projTableId tr:eq('+id+') td:eq(5)').text());
 
             $('#description').val($('#projTableId tr:eq('+id+') td:eq(6)').text());
             $('#startDate').val($('#projTableId tr:eq('+id+') td:eq(7)').text());

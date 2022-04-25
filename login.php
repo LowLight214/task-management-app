@@ -97,37 +97,38 @@ if(isset($_POST["btnLogin"])){
 
 ?>
 
-<!DOCTYPE html> <!-- what is the version of html:5 -->
-<html> <!-- html tag, consists of head and body -->
-    <head>  
-        <meta charset="utf-8"> 
-        <title>TaskMAV - Task Monitoring System - Login</title>
-        <link rel="stylesheet" href="css/login-style.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="preconnect" href="https://fonts.gstatic.com">
-        <link href="https://fonts.googleapis.com/css2?family=Convergence&family=Lato:wght@300;400;700;900&family=Mukta:wght@300;400;600;700;800&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        <form method="post">
-            <img src="images/logo-melham.png">
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="css/css-login.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<title>TaskMAV Login</title>
+</head>
+<body>
+	<div class="container" id="container">
+    <div class="form-container log-in-container">
 
-            <div class="form">
-                <input name="username"type="text" id="username" class="form__input" autocomplete="off" placeholder=" ">
-                <label for="username" class="form__label">Username</label>
-                <i class="fa fa-envelope" aria-hidden="true"></i>
-              </div>
-                
-             <div class="form">
-                    <input name="password" type="password" class="form__input" autocomplete="off" placeholder=" ">
-                    <label for="password" class="form__label">Password</label>
-                    <i class="fa fa-lock icon" aria-hidden="true"></i>     
-                    <br>
-                    <input type ="checkbox" class="check-box"><span>Remember me</span>          
-                </div>
-                <div class="pass">Forgot password?</div>
-                <input type="submit" name="btnLogin" value="Login">
-                
-        </form>
+			<form method="post">
 
-    </body>
+				<h2>LOGIN</h2>
+				<input name="username" type="text" id="username" class="form__input" autocomplete="off" placeholder="Email "/>
+				<input name="password" type="password" class="form__input" autocomplete="off" placeholder="Password"/>
+				<a href="#">Forgot your password?</a>
+				<input type="submit" name="btnLogin" value="Login"/>
+			</form>
+
+		</div>
+
+		<div class="overlay-container">
+			<div class="overlay">
+				<div class="overlay-panel overlay-left">
+          <img src="img/logo-melham.png" alt="">
+					<p>COLLABORATIVE:RESPECT:INTEGRITY:PRIDE</p>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+</body>
 </html>

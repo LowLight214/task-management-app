@@ -1,3 +1,19 @@
+<?php
+
+if(!isset($_SESSION)) { 
+    session_start(); 
+} 
+
+if(isset($_SESSION["projectID"])){
+	
+    $projectID = $_SESSION["projectID"];
+
+}
+
+
+
+?>
+
 <div class="card-body">
     <div class="table-responsive">
         <table id="projTableId" class="table table-striped table-hover">
@@ -13,6 +29,8 @@
             <tbody>
                         
                 <?php
+                
+                include("../connections.php");
                                 
                 $count = 0;
 

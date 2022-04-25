@@ -32,13 +32,6 @@ if(isset($_POST["btnAddUser"])){
 
     
     if($fName && $mName && $lName && $email && $contactNo && $role && $department && $address){
-        
-        $insertUser = mysqli_query($conn, "INSERT INTO `tbl_users` (`userID`, `lastName`, `firstName`, `middleName`, `email`, `phoneNumber`, `adress`, `role`, `departmentID`) 
-        VALUES (NULL, '$lName', '$fName', '$mName', '$email', '$contactNo', '$address', '$role', '$department') ");
-
-        $getUserID = mysqli_query($conn, "SELECT * FROM tbl_users WHERE lastName='$lName' AND firstName='$fName'");
-        $row = mysqli_fetch_assoc($getUserID);
-        $userID = $row["userID"];
 
         function  random_password($length=5){
             $str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ01234567890";
@@ -48,13 +41,45 @@ if(isset($_POST["btnAddUser"])){
         
         $password = random_password(8);
 
-        if($insertUser){
-            mysqli_query($conn, "INSERT INTO `tbl_user_creds` (`userID`, `username`, `password`, `accountType`) VALUES ('$userID', '$email', '$password', '$role') ");
-        }
+        require 'PHPMailer/PHPMailerAutoload.php';
+		$mail = new PHPMailer;
+	    $mail->IsSMTP();
+		$mail->Host = 'smtp.gmail.com';
+		$mail->SMTPAuth = true;
+		$mail->Username = 'taskmav.uip@gmail.com';
+		$mail->Password = 'taskmav123';
+		$mail->SMTPSecure = 'tsl';
+		$mail->Port = 587;
+		$mail->From = 'UIP';
+		$mail->FromName = 'TaskMAV';
+		$mail->addAddress($email);
+		$mail->isHTML(true);
+		$message = "
+            Welcome to TaskMAV and I hope you find it useful. Your password is: <font colore='red'><b>$password</b></font> 
+        ";
+		$mail->Subject = 'Default Password';
+		$mail->Body = $message;
+		if(!$mail->send()){
+			echo 'Message could not be sent.';
+		    echo 'Mailer Error: '.$mail->ErrorInfo;
+		}
+		else{
         
+            $insertUser = mysqli_query($conn, "INSERT INTO `tbl_users` (`userID`, `lastName`, `firstName`, `middleName`, `email`, `phoneNumber`, `adress`, `role`, `departmentID`) 
+            VALUES (NULL, '$lName', '$fName', '$mName', '$email', '$contactNo', '$address', '$role', '$department') ");
 
-        echo "<script> window.location.href='user.php'; </script>";
+            $getUserID = mysqli_query($conn, "SELECT * FROM tbl_users WHERE lastName='$lName' AND firstName='$fName'");
+            $row = mysqli_fetch_assoc($getUserID);
+            $userID = $row["userID"];
 
+            if($insertUser){
+                mysqli_query($conn, "INSERT INTO `tbl_user_creds` (`userID`, `username`, `password`, `accountType`) VALUES ('$userID', '$email', '$password', '$role') ");
+            }
+            
+
+            echo "<script> window.location.href='user.php'; </script>";
+
+        }
     }
 
 

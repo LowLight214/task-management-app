@@ -23,15 +23,20 @@
                             
 
                 <?php
+
+                include("../connections.php");
                                 
                 $count = 0;
 
-                $getUser = mysqli_query($conn,"SELECT a.userID,a.firstName,a.lastName,c.accountType,b.departmentName FROM tbl_users AS a INNER JOIN tbl_department AS b INNER JOIN tbl_account_type AS c ON a.role=c.accountTypeID AND a.departmentID=b.departmentID");
+                $getUser = mysqli_query($conn,"SELECT a.userID,a.firstName,a.lastName,a.adress,c.accountType,b.departmentName FROM tbl_users AS a INNER JOIN tbl_department AS b INNER JOIN tbl_account_type AS c ON a.role=c.accountTypeID AND a.departmentID=b.departmentID");
 
                 while($rowUser = mysqli_fetch_assoc($getUser)){
 
-                    $db_userID = $rowUser["userID"];                
-                    $db_fullName = $rowUser["firstName"]. " " . $rowUser["lastName"];
+                    $db_userID = $rowUser["userID"]; 
+                    $db_firstName = $rowUser["firstName"];
+                    $db_lastName = $rowUser["lastName"];              
+                    $db_fullName = $db_firstName. " " . $db_lastName;
+                    $db_address = $rowUser["adress"];
                     $db_role = $rowUser["accountType"];
                     $db_department = $rowUser["departmentName"];
                     $count++;

@@ -4038,6 +4038,7 @@ input[type="button"].btn-block {
 
 .nav-tabs {
   border-bottom: 1px solid #dddfeb;
+
 }
 
 .nav-tabs .nav-link {
@@ -4116,6 +4117,7 @@ input[type="button"].btn-block {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-between;
+  float: left;
 }
 
 .navbar-brand {

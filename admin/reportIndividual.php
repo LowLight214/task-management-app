@@ -1,3 +1,7 @@
+<?php
+    include("../connections.php")
+?>
+
 <div class="card-body">
     <div class="col-md-6">
         <div class="form-group text-left text-white font-weight-bold"> 

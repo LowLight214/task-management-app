@@ -10,11 +10,21 @@ if(isset($_SESSION["username"])){
 
 }
 
-$getUser = mysqli_query($conn,"SELECT a.userID,a.departmentID FROM tbl_users AS a INNER JOIN tbl_user_creds AS b ON a.userID=b.userID WHERE b.username='$username'");
+$getUser = mysqli_query($conn,"SELECT a.userID,a.departmentID,a.profilePic FROM tbl_users AS a INNER JOIN tbl_user_creds AS b ON a.userID=b.userID WHERE b.username='$username'");
 $rowUserID = mysqli_fetch_assoc($getUser);
 
 $userID = $rowUserID["userID"];
 $departmentID =$rowUserID["departmentID"];
+
+$img = $rowUserID["profilePic"];
+
+$image = "";
+if($img == ""){
+    $image = "https://bootdey.com/img/Content/avatar/avatar7.png";
+}
+else{
+    $image = $img;
+}
 
 ?>
 
@@ -28,6 +38,19 @@ $departmentID =$rowUserID["departmentID"];
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+
+    <script type="text/javascript" src="../js/jQuery.js"></script>
+    <script type="application/javascript">
+
+        setInterval(function(){
+            
+            $('#retriever').load('retriever-project.php');
+            $('#badgeNotif').load('../notification-badge.php');
+            $('#contentNotif').load('../notification-content.php');
+            
+        }, 1000);
+
+    </script>
 
     <title>TaskMAV - Task Monitoring System</title>
 
@@ -176,9 +199,33 @@ $departmentID =$rowUserID["departmentID"];
                         </li>
 
                         <!-- Nav Item - Alerts -->
-                        <?php
-                            include("../notifications.php");
-                        ?>
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <div id="badgeNotif">
+                                    <?php
+                                        include("../notification-badge.php")
+                                    ?>
+                                </div> 
+                            </a>
+                                <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Notifications
+                                </h6>
+
+                                <div id="contentNotif">
+                                    <?php
+                                        include("../notification-content.php")
+                                    ?>
+                                </div>
+                                            
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            </div>
+                        </li>
 
                         <!-- Nav Item - Messages -->
                         
@@ -190,8 +237,8 @@ $departmentID =$rowUserID["departmentID"];
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                                <img class="img-profile rounded-circle"
-                                    src="img/undraw_profile.svg">
+                                <img class="img-profile rounded-circle" style="border:1px solid black;object-fit:cover;width:50px;height:50px;"
+                                    src="<?php echo $image; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
                             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
@@ -244,12 +291,12 @@ $departmentID =$rowUserID["departmentID"];
                                 </div>
                             </div>
                             
-                            <?php
-                                include("retriever-project.php");
-                            ?>     
-                                                
-                                                
-                        
+                            <div id="retriever">
+                                <?php
+                                    include("retriever-project.php");
+                                ?>
+                            </div>
+                                 
                         </div>
         
                 <!-- /.container-fluid -->
