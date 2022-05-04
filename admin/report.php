@@ -44,12 +44,34 @@ else{
 
         setInterval(function(){
             
-            $('#retrieverGroup').load('retriever-reportTeam.php');
-            $('#retrieverIndividual').load('retriever-reportIndividual.php');
+         
+                $.ajax({
+                    type: "POST", 
+                    url: "reportTeam.php",
+                    "dataSrc": "tableData",
+                    success: function(html) {
+                        $("#reportGroup").html(html);
+                        $('#projTableId').DataTable({ 
+                            "destroy": true, //use for reinitialize datatable
+                        });
+                    }
+                });
+
+                $.ajax({
+                    type: "POST", 
+                    url: "reportIndividual.php",
+                    "dataSrc": "tableData",
+                    success: function(html) {
+                        $("#retrieverIndividual").html(html);
+                        $('#projTableId1').DataTable({ 
+                            "destroy": true, //use for reinitialize datatable
+                        });
+                    }
+                });
             $('#badgeNotif').load('../notification-badge.php');
             $('#contentNotif').load('../notification-content.php');
             
-        }, 1000);
+        }, 30000);
 
     </script>
 
@@ -388,12 +410,6 @@ else{
       <script>
         $(document).ready(function() {
           $('#projTableId1').DataTable();
-         } );
-    </script>
-      </script>
-      <script>
-        $(document).ready(function() {
-          $('#projTableId2').DataTable();
          } );
     </script>
 

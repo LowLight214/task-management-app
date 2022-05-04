@@ -39,16 +39,16 @@ else{
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <script type="text/javascript" src="js/jQuery.js"></script>
+    <script type="text/javascript" src="../js/jQuery.js"></script>
     <script type="application/javascript">
 
         setInterval(function(){
-            
+
             $('#retriever').load('retriever-user.php');
             $('#badgeNotif').load('../notification-badge.php');
             $('#contentNotif').load('../notification-content.php');
             
-        }, 1000);
+        }, 20000);
 
     </script>
 
@@ -295,11 +295,77 @@ else{
                     </div>
                 </div>
                 
-                <div id="retriever">
-                    <?php
-                        include("retriever-user.php");
-                    ?>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="projTableId" class="table table-striped table-hover">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Full Name</th> 
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tfoot class="tfoot-light">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Full Name</th> 
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                            <tbody id="retriever">
+                                            
+                                <tr hidden>
+                                    <th>#</th>
+                                    <th>Full Name</th> 
+                                    <th>Role</th>
+                                    <th>Department</th>
+                                    <th>Action</th>
+                                </tr>
+
+                                <?php
+                                    include("retriever-user.php");
+                                ?>
+                                
+                            </tbody>                                                                            
+                        </table>
+                    </div>
                 </div>
+
+                <script>
+
+                    function modalOpen(id){
+                        $('#updateUserModal').modal('show');
+
+                        $(".dept").removeAttr('selected');
+                        $(".account_role").removeAttr('selected');
+
+                        $('#contactNum').val($('#projTableId tr:eq('+id+') td:eq(4)').text())
+
+                        $('#new_address').val($('#projTableId tr:eq('+id+') td:eq(7)').text())
+
+                        $('#new_email').val($('#projTableId tr:eq('+id+') td:eq(6)').text())
+
+                        $('#userID').val($('#projTableId tr:eq('+id+') td:eq(5)').text()) 
+
+                        $('#new_firstName').val($('#projTableId tr:eq('+id+') td:eq(9)').text())
+
+                        $('#new_lastName').val($('#projTableId tr:eq('+id+') td:eq(10)').text())
+
+                        $('#new_middleName').val($('#projTableId tr:eq('+id+') td:eq(11)').text())
+
+                        depart = $('#projTableId tr:eq('+id+') td:eq(8)').text();;
+                        $("#new_depart"+depart).attr('selected', 'selected'); 
+
+                        arole = $('#projTableId tr:eq('+id+') td:eq(3)').text();;
+                        $("#new_role_account"+arole).attr('selected', 'selected'); 
+
+
+                    }
+                </script>
                 
             </div>
 
@@ -317,7 +383,15 @@ else{
             </div>
         </div>
 
-
+        <div id="updateUserModal" class="modal fade">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <?php
+                        include("updateUser.php");
+                    ?>
+                </div>
+            </div>
+        </div>
 
         </div>
         <!-- End of Content Wrapper -->
@@ -367,7 +441,7 @@ else{
    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
    <script>
-       $(document).ready(function() {
+       $(function() {
          $('#projTableId').DataTable();
         } );
    </script>

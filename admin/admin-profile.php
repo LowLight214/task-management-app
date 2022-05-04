@@ -82,6 +82,19 @@ if(isset($_POST["btnUpdateProfile"])){
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script type="text/javascript" src="../js/jQuery.js"></script>
+    <script type="application/javascript">
+
+        setInterval(function(){
+            
+            $('#retriever').load('retriever-project.php');
+            $('#badgeNotif').load('../notification-badge.php');
+            $('#contentNotif').load('../notification-content.php');
+            
+        }, 1000);
+
+    </script>
+
     <title>TaskMAV - Task Monitoring System</title>
 
     <!-- Custom fonts for this template-->
@@ -227,9 +240,33 @@ if(isset($_POST["btnUpdateProfile"])){
                             </div>
                         </li>
                         <!-- Nav Item - Alerts -->
-                        <?php
-                            include("../notifications.php");
-                        ?>
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <div id="badgeNotif">
+                                    <?php
+                                        include("../notification-badge.php")
+                                    ?>
+                                </div> 
+                            </a>
+                                <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Notifications
+                                </h6>
+
+                                <div id="contentNotif">
+                                    <?php
+                                        include("../notification-content.php")
+                                    ?>
+                                </div>
+                                            
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            </div>
+                        </li>
 
                         <!-- Nav Item - Messages -->
 
@@ -241,7 +278,7 @@ if(isset($_POST["btnUpdateProfile"])){
                             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
-                                <img class="img-profile rounded-circle" style="width:auto;"
+                                <img class="img-profile rounded-circle" style="border:1px solid black;object-fit:cover;width:50px;height:50px;"
                                     src="<?php echo $image; ?>">
                             </a>
                             <!-- Dropdown - User Information -->
@@ -286,7 +323,7 @@ if(isset($_POST["btnUpdateProfile"])){
                         <div class="account-settings">
                             <div class="user-profile">
                                 <div class="user-avatar">
-                                <a href="edit-image.php">	<img style="height:150px;" src="<?php echo $image; ?>" alt="Maxwell Admin"> </a>
+                                <a href="edit-image.php">	<img style="height:150px;width:150px;object-fit:cover;" src="<?php echo $image; ?>" alt="Maxwell Admin"> </a>
                                 </div>
                                 <h5 style="margin-top:1rem;" class="user-name"><?php echo $db_firstName." ".$db_lastName; ?></h5>
                                 <h6 class="user-email"><?php echo $db_username; ?></h6>

@@ -276,7 +276,17 @@ else{
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
                                 Total Users</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">4, 254</div>
+
+                                <?php
+                                    $userCount = 0;
+
+                                    $getUserCount = mysqli_query($conn, "SELECT COUNT(userID) FROM tbl_users");
+                                    $rowUserCount = mysqli_fetch_assoc($getUserCount);
+
+                                    $userCount = $rowUserCount["COUNT(userID)"];
+                                ?>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $userCount; ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-users fa-2x text-gray-300"></i>
@@ -294,7 +304,17 @@ else{
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-success text-uppercase mb-1">
                                 No. of Online Users</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">952</div>
+
+                                <?php
+                                    $onlineCount = 0;
+
+                                    $getOnlineCount = mysqli_query($conn, "SELECT COUNT(userID) FROM tbl_users WHERE isLoggedIn = '1'");
+                                    $rowOnlineCount = mysqli_fetch_assoc($getOnlineCount);
+
+                                    $onlineCount = $rowOnlineCount["COUNT(userID)"];
+                                ?>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $onlineCount; ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-globe fa-2x text-gray-300"></i>
@@ -312,9 +332,19 @@ else{
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Departments
                             </div>
+
+                                <?php
+                                    $deptCount = 0;
+
+                                    $getDepartmentCount = mysqli_query($conn, "SELECT COUNT(departmentID) FROM tbl_department");
+                                    $rowDeptCount = mysqli_fetch_assoc($getDepartmentCount);
+
+                                    $deptCount = $rowDeptCount["COUNT(departmentID)"];
+                                ?>
+
                             <div class="row no-gutters align-items-center">
                                 <div class="col-auto">
-                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">20</div>
+                                    <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800"><?php echo $deptCount; ?></div>
                                 </div>
                                 <div class="col">
 
@@ -337,7 +367,17 @@ else{
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">
                                 Core Teams</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+
+                                <?php
+                                    $coreCount = 0;
+
+                                    $getCoreTeamCount = mysqli_query($conn, "SELECT COUNT(userID) FROM tbl_users WHERE departmentID=7");
+                                    $rowCoreCount = mysqli_fetch_assoc($getCoreTeamCount);
+
+                                    $coreCount = $rowCoreCount["COUNT(userID)"];
+                                ?>
+
+                            <div class="h5 mb-0 font-weight-bold text-gray-800"><?php echo $coreCount; ?></div>
                         </div>
                         <div class="col-auto">
                             <i class="fas fa-user-tie fa-2x text-gray-300"></i>
@@ -350,34 +390,100 @@ else{
 
 
                         <!-- Area Chart -->
-                        <div>
-                            <div class="card shadow mb-4">
-                                <!-- Card Header - Dropdown -->
-                                <div
-                                    class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Additional Features</h6>
-                                    <div class="dropdown no-arrow">
-                                        <a class="dropdown-toggle" href="#" role="button" id="dropdownMenuLink"
-                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                            <i class="fas fa-ellipsis-v fa-sm fa-fw text-gray-400"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in"
-                                            aria-labelledby="dropdownMenuLink">
-                                            <div class="dropdown-header">Dropdown Header:</div>
-                                            <a class="dropdown-item" href="#">Action</a>
-                                            <a class="dropdown-item" href="#">Another action</a>
-                                            <div class="dropdown-divider"></div>
-                                            <a class="dropdown-item" href="#">Something else here</a>
+                    
+                        
+                            <div class="row">
+                                <div class="col-lg-8">
+                                        <!-- Card Header -->
+                                        <div class="card shadow mb-4">
+                                <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary">Projects</h6>
+                                </div>
+                                    <!-- Card Body -->
+                                <div class="card-body" >
+                                    <div class="container overflow-auto" style="height:300px;max-height:300px;">
+                                        <?php
+
+                                        $getProjectProgress = mysqli_query($conn, "SELECT * FROM tbl_project");
+
+                                        while($rowProjects = mysqli_fetch_assoc($getProjectProgress)){
+                                           $db_projectName = $rowProjects["projectTitle"];
+                                           $db_projectID = $rowProjects["projectID"];
+                                           $db_progress = $rowProjects["projectProgress"];
+
+                                           $getTaskCount = mysqli_query($conn,"SELECT COUNT(taskID) FROM tbl_task WHERE projectID = $db_projectID");
+                                           $rowTaskCount = mysqli_fetch_assoc($getTaskCount);
+
+                                           $taskCount = $rowTaskCount["COUNT(taskID)"];
+                                        
+                                        ?>
+
+                                        <h4 class="small font-weight-bold"> <?php echo $db_projectName; ?>
+                                            <small class="pull-left">TASKS: <?php echo $taskCount; ?></small>
+                                            <span class="float-right"><?php echo $db_progress; ?>%</span>
+                                        </h4>
+                                        <div class="progress mb-4">
+                                            <div class="progress-bar" role="progressbar" style="width: <?php echo $db_progress; ?>%"
+                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+
+                                        <?php
+                                        }
+                                        ?>
+                                    </div>
+
+                                </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-lg-4">
+                                    <div class="card shadow mb-4">
+                                        <!-- Card Header - Dropdown -->
+                                        <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                            <h6 class="m-0 font-weight-bold text-primary">Top Teams</h6>
+                                        </div>
+                                        <!-- Card Body -->
+                                        <div class="card-body">
+                                            <div class="container" style="height:300px;">
+                                                <?php
+                                                    $rank=1;
+
+                                                    $getTeams = mysqli_query($conn,"SELECT b.departmentName,c.firstName,c.lastName 
+                                                    FROM tbl_project AS a INNER JOIN tbl_department AS b INNER JOIN tbl_users AS c 
+                                                    ON a.departmentID = b.departmentID AND a.leaderUserID = c.userID
+                                                    ORDER BY projectProgress DESC LIMIT 3;");
+
+                                                    while($rowTopTeams = mysqli_fetch_assoc($getTeams)){
+                                                        $db_department = $rowTopTeams["departmentName"];
+                                                        $db_first = $rowTopTeams["firstName"];
+                                                        $db_last = $rowTopTeams["lastName"];
+                                                ?>
+
+                                                <div class="row" style="margin-bottom:20px;">
+                                                    <div class="col-lg-4">
+													    <img src="img/medal<?php echo $rank; ?>.png" alt="avatar" style="max-height:60px;" class="widget-image pull-left">
+													</div>
+
+                                                    <div class="col-lg-8">
+                                                        <h6 class="widget-content text-left">
+                                                            <strong><?php echo $db_department; ?></strong><br>
+                                                            <small>LEADER: <?php echo $db_first." ".$db_last; ?></small>							
+                                                                                        
+                                                        </h6>
+                                                    </div>
+												</div>
+                                                <hr>
+                                                <?php
+                                                        $rank++;
+                                                    }
+                                                ?>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                                <!-- Card Body -->
-                                <div class="card-body">
-
-
-                                </div>
                             </div>
-                        </div>
+                        
+                    
                 <!-- /.container-fluid -->
             </div>
             <!-- End of Main Content -->
@@ -411,7 +517,7 @@ else{
                 <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
-                    <a class="btn btn-primary" href="login.html">Logout</a>
+                    <a class="btn btn-primary" href="../logout.php">Logout</a>
                 </div>
             </div>
         </div>

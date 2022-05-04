@@ -26,6 +26,15 @@ if(isset($_SESSION["projectID"])){
                     <th>Action</th>
                 </tr>
             </thead>
+            <tfoot>
+                <tr>
+                    <th>#</th>
+                    <th>Task</th> 
+                    <th>Description</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </tfoot>
             <tbody>
                         
                 <?php
@@ -58,7 +67,7 @@ if(isset($_SESSION["projectID"])){
                             <td hidden>$projectID</td>
 
                             <td>
-                                <button type='button' class='btn btn-outline-primary updateBtn' onclick='modalOpen($count)'>
+                                <button type='button' class='btn btn-outline-primary updateBtn' onclick='modalOpen($count+1)'>
                                     <i class='fas fa-edit'></i>
                                 </button>
                                 <a href='?jScript=$jScript && newScript=$newScript && getDelete=$getDelete && taskID=$db_taskID && projectID=$projectID' class='btn btn-outline-danger'><i class='fas fa-trash'></i></a>
@@ -69,7 +78,8 @@ if(isset($_SESSION["projectID"])){
                     ";
                                     
                 }
-                ?>                                                                                           
+                ?>
+            </tbody>                                                                                           
         </table>
     </div>
 </div>

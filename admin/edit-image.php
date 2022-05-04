@@ -112,6 +112,19 @@ img{
     <meta name="description" content="">
     <meta name="author" content="">
 
+    <script type="text/javascript" src="../js/jQuery.js"></script>
+    <script type="application/javascript">
+
+        setInterval(function(){
+            
+            $('#retriever').load('retriever-project.php');
+            $('#badgeNotif').load('../notification-badge.php');
+            $('#contentNotif').load('../notification-content.php');
+            
+        }, 1000);
+
+    </script>
+
     <title>TaskMAV - Task Monitoring System</title>
 
     <!-- Custom fonts for this template-->
@@ -258,9 +271,33 @@ img{
                             </div>
                         </li>
                         <!-- Nav Item - Alerts -->
-                        <?php
-                            include("../notifications.php");
-                        ?>
+                        <li class="nav-item dropdown no-arrow mx-1">
+                            <a class="nav-link dropdown-toggle" href="#" id="alertsDropdown" role="button"
+                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class="fas fa-bell fa-fw"></i>
+                                <!-- Counter - Alerts -->
+                                <div id="badgeNotif">
+                                    <?php
+                                        include("../notification-badge.php")
+                                    ?>
+                                </div> 
+                            </a>
+                                <!-- Dropdown - Alerts -->
+                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                            aria-labelledby="alertsDropdown">
+                                <h6 class="dropdown-header">
+                                    Notifications
+                                </h6>
+
+                                <div id="contentNotif">
+                                    <?php
+                                        include("../notification-content.php")
+                                    ?>
+                                </div>
+                                            
+                                <a class="dropdown-item text-center small text-gray-500" href="#">Show All Alerts</a>
+                            </div>
+                        </li>
 
                         <!-- Nav Item - Messages -->
 

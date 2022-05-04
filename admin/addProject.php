@@ -20,8 +20,8 @@ if(isset($_POST["btnAddProject"])){
         $endDate = $_POST["endDate"];
     }
     
-    if(!empty($_POST["tLeader"])){
-        $teamLeader = $_POST["tLeader"];
+    if(!empty($_POST["hiddenTLeader"])){
+        $teamLeader = $_POST["hiddenTLeader"];
     }
     
     if(!empty($_POST["department"])){
@@ -95,10 +95,12 @@ if(isset($_POST["btnAddProject"])){
                 <div class="input-box">
                     <span class="details">Team Leader</span>
                     <input type="text" class="form-control" id="tLeader" name="tLeader" required>
+                    <input type="hidden" class="form-control" id="hiddenTLeader" name="hiddenTLeader" required>
 
                     <?php
                         $getLeader = mysqli_query($conn,"SELECT * FROM tbl_users WHERE role=2");
                         while($rowLead = mysqli_fetch_assoc($getLeader)){
+                            $db_leaderID = $rowLead["userID"];
                             $db_leaderName = $rowLead["firstName"]. " " . $rowLead["lastName"];
                             $db_departmentID = $rowLead["departmentID"];
                             if($db_leaderName==="")
@@ -107,6 +109,7 @@ if(isset($_POST["btnAddProject"])){
                             }
                             echo"
                                 <input type='hidden' name='leaderName' id ='$db_departmentID' value='$db_leaderName'>
+                                <input type='hidden' name='leaderName' id ='leader$db_departmentID' value='$db_leaderID'>
                             ";
                         }
                     ?>
@@ -150,12 +153,14 @@ if(isset($_POST["btnAddProject"])){
                     function getLeader(){
                         deptPicked = $('#department').val();
                         leader = $('#'+deptPicked).val();
+                        leaderID = $('#leader'+deptPicked).val();
 
                         if($.isNumeric(leader)){
                             leader= "No Leader yet";
                         }
 
                         $('#tLeader').val(leader)
+                        $('#hiddenTLeader').val(leaderID)
                     }
                 </script>
 

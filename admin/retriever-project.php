@@ -1,20 +1,6 @@
-<div class="card-body">
-    <div class="table-responsive">
-        <table id="projTableId" class="table table-striped table-hover">
-            <thead class="thead-light">
-                <tr>
-                    <th>#</th>
-                    <th>Project</th>
-                    <th>End Date</th>
-                    <th>Status</th>
-                    <th>Department</th>
-                    <th>Leader</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                        
-                <?php
+
+
+<?php
                 
                 include("../connections.php");
                                 
@@ -63,7 +49,7 @@
                             <td hidden>$db_startDate</td>
                             <td hidden>$db_projectID</td>
                             <td>
-                                <button type='button' class='btn btn-outline-primary updateBtn' onclick='modalOpen($count)'>
+                                <button type='button' class='btn btn-outline-primary updateBtn' onclick='modalOpen($count+1)'>
                                     <i class='fas fa-edit'></i>
                                 </button>
                                 <a href='?jScript=$jScript && newScript=$newScript && getDelete=$getDelete && projectID=$db_projectID' class='btn btn-outline-danger'><i class='fas fa-trash'></i></a>
@@ -75,37 +61,4 @@
                     ";
                                     
                 }
-                ?>                                                                                           
-        </table>
-    </div>
-</div>
-
-<script>
-    function goToProject(projectID){
-        window.location.href="task.php?projectID="+projectID;
-    }
-
-    function modalOpen(id){
-		$('#editProjectModal').modal('show');
-
-            $(".statusOption").removeAttr('selected');
-            $(".deptOption").removeAttr('selected');
-
-            $('#projectname').val($('#projTableId tr:eq('+id+') td:eq(0)').text());
-
-            $('#endDate').val($('#projTableId tr:eq('+id+') td:eq(1)').text());
-            
-            status = $('#projTableId tr:eq('+id+') td:eq(2)').text();
-            $("#"+status).attr('selected', 'selected');
-
-            dept = $('#projTableId tr:eq('+id+') td:eq(4)').text();;
-            $("#dept"+dept).attr('selected', 'selected');
-
-            $('#new_tLeader').val($('#projTableId tr:eq('+id+') td:eq(5)').text());
-
-            $('#description').val($('#projTableId tr:eq('+id+') td:eq(6)').text());
-            $('#startDate').val($('#projTableId tr:eq('+id+') td:eq(7)').text());
-            $('#projectID').val($('#projTableId tr:eq('+id+') td:eq(8)').text())
-            	
-	}
-</script>
+                ?> 

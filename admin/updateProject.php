@@ -68,9 +68,9 @@ if(isset($_POST["btnUpdateProject"])){
                     <span class="details">Project Status</span>
                     <select type="text" id="status" name="new_status" class="form-control" required>
                         <option value="" selected disabled>Select Status</option>
-                            <option class="statusOption" id="Pending" value="Pending">Pending</option>
-                            <option class="statusOption" id="Ongoing" value="Ongoing">Ongoing</option>
-                            <option class="statusOption" id="Finished" value="Finished">Finished</option>
+                            <option class="statusOption" id="newPending" value="Pending">Pending</option>
+                            <option class="statusOption" id="newOngoing" value="Ongoing">Ongoing</option>
+                            <option class="statusOption" id="newFinished" value="Finished">Finished</option>
                     </select>
                     <div class="invalid-feedback">
                         This field cannot be empty!

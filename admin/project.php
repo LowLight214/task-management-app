@@ -45,10 +45,19 @@ else{
         setInterval(function(){
             
             $('#retriever').load('retriever-project.php');
-            $('#badgeNotif').load('../notification-badge.php');
-            $('#contentNotif').load('../notification-content.php');
             
-        }, 1000);
+        }, 20000);
+
+    </script>
+
+    <script type="application/javascript">
+
+    setInterval(function(){
+
+        $('#badgeNotif').load('../notification-badge.php');
+        $('#contentNotif').load('../notification-content.php');
+        
+    }, 1000);
 
     </script>
 
@@ -291,11 +300,80 @@ else{
                                 </div>
                             </div>
                             
-                            <div id="retriever">
-                                <?php
-                                    include("retriever-project.php");
-                                ?>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table id="projTableId1" class="table table-striped table-hover">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Project</th>
+                                                <th>End Date</th>
+                                                <th>Status</th>
+                                                <th>Department</th>
+                                                <th>Leader</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tfoot>
+                                            <tr>
+                                                <th>#</th>
+                                                <th>Project</th>
+                                                <th>End Date</th>
+                                                <th>Status</th>
+                                                <th>Department</th>
+                                                <th>Leader</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </tfoot>
+                                        <tbody id="retriever">
+                                            <tr hidden>
+                                                <th>#</th>
+                                                <th>Project</th>
+                                                <th>End Date</th>
+                                                <th>Status</th>
+                                                <th>Department</th>
+                                                <th>Leader</th>
+                                                <th>Action</th>
+                                            </tr> 
+
+                                            <?php
+                                                include("retriever-project.php");
+                                            ?>
+                                            
+                                        </tbody>                                                                                       
+                                    </table>
+                                </div>
                             </div>
+
+                            <script>
+                                function goToProject(projectID){
+                                    window.location.href="task.php?projectID="+projectID;
+                                }
+
+                                function modalOpen(id){
+                                    $('#editProjectModal').modal('show');
+
+                                        $(".statusOption").removeAttr('selected');
+                                        $(".deptOption").removeAttr('selected');
+
+                                        $('#projectname').val($('#projTableId1 tr:eq('+id+') td:eq(0)').text());
+
+                                        $('#endDate').val($('#projTableId1 tr:eq('+id+') td:eq(1)').text());
+                                        
+                                        status = $('#projTableId1 tr:eq('+id+') td:eq(2)').text();
+                                        $("#new"+status).attr('selected', 'selected');
+
+                                        dept = $('#projTableId1 tr:eq('+id+') td:eq(4)').text();;
+                                        $("#dept"+dept).attr('selected', 'selected');
+
+                                        $('#new_tLeader').val($('#projTableId1 tr:eq('+id+') td:eq(5)').text());
+
+                                        $('#description').val($('#projTableId1 tr:eq('+id+') td:eq(6)').text());
+                                        $('#startDate').val($('#projTableId1 tr:eq('+id+') td:eq(7)').text());
+                                        $('#projectID').val($('#projTableId1 tr:eq('+id+') td:eq(8)').text())
+                                            
+                                }
+                            </script>
                                  
                         </div>
         
@@ -371,31 +449,17 @@ else{
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-   <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap4.min.js"></script>
 
-   <script>
-       $(document).ready(function() {
-         $('#projTableId').DataTable();
-        } );
-   </script>
-      <script>
+    <script>
         $(document).ready(function() {
           $('#projTableId1').DataTable();
          } );
     </script>
-      </script>
-      <script>
-        $(document).ready(function() {
-          $('#projTableId2').DataTable();
-         } );
-    </script>
+
+    
 
 </body>
 

@@ -42,18 +42,7 @@ if(isset($_POST["btnAddUser"])){
         $password = random_password(8);
 
         require 'PHPMailer/PHPMailerAutoload.php';
-		$mail = new PHPMailer;
-	    $mail->IsSMTP();
-		$mail->Host = 'smtp.gmail.com';
-		$mail->SMTPAuth = true;
-		$mail->Username = 'taskmav.uip@gmail.com';
-		$mail->Password = 'taskmav123';
-		$mail->SMTPSecure = 'tsl';
-		$mail->Port = 587;
-		$mail->From = 'UIP';
-		$mail->FromName = 'TaskMAV';
-		$mail->addAddress($email);
-		$mail->isHTML(true);
+		
 		$message = "
             Welcome to TaskMAV and I hope you find it useful. Your password is: <font colore='red'><b>$password</b></font> 
         ";
