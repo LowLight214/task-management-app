@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TaskMAV Login</title>
+
+    <link rel="stylesheet" type="text/css" href="css/css-login.css">
+</head>
+<body>
+    <div class="loginbox">
+        <img src="css/login-icon.jpg" class="avatar"> 
+            <h1>Login Here</h1>
+
+			<?php include 'controllers/authController.php'?>
+                <?php if (count($errors) > 0): ?>
+                  <div class="alert alert-danger">
+                <?php foreach ($errors as $error): ?>
+               <li>
+               <?php echo $error; ?>
+               </li>
+               <?php endforeach;?>
+              </div>
+               <?php endif;?>
+
+            <form>
+                <p>Username</p>
+                <input type="text" name="username" autocomplete="off" placeholder="Enter Username">
+                <p>Password</p>
+                <input type="password" name="password" autocomplete="off" placeholder="Enter Password">
+                <input type="submit" name="btnLogin" value="Login"> 
+                <a href="#">Forgot Password?</a> 
+            </form>
+            
+
+    </div>
+</body>
+</html>
